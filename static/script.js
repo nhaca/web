@@ -175,7 +175,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     try {
-      const response = await fetch("http://localhost:5000/login", {
+      const response = await fetch("/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ username, password })
@@ -238,7 +238,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     try {
-      const res = await fetch(`http://localhost:5000/download_fla?username=${encodeURIComponent(currentUsername)}`);
+      const res = await fetch(`/download_fla?username=${encodeURIComponent(currentUsername)}`);
       if (!res.ok) {
         const errData = await res.json();
         showCustomAlert(errData.message || 'Lỗi khi tải file.');
