@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Thư viện Nhân vật</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Alfa+Slab+One&display=swap');
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>VẬT LIỆU HOẠT HÌNH ĐIÊU KHẮC CÁT</h1>
+    <button id="loginBtn">Đăng nhập</button>
+  </header>
+
+  <!-- Login Popup -->
+  <div id="loginPopup" class="popup">
+    <div class="popup-content">
+      <span id="closePopup" class="close">&times;</span>
+      <h2>Đăng nhập</h2>
+      <label for="username">TÊN CỦA BẠN:</label>
+      <input type="text" id="username" />
+      <label for="password">MẬT KHẨU:</label>
+      <input type="password" id="password" />
+      <p id="loginError" class="error"></p>
+      <button id="submitLogin">Xác nhận</button>
+    </div>
+  </div>
+
+  <!-- Bộ lọc -->
+  <div class="filters">
+    <button data-filter="all" class="active">Tất cả</button>
+    <button data-filter="Tiên hiệp">Tiên hiệp</button>
+    <button data-filter="Hiện đại">Hiện đại</button>
+    <button data-filter="Kỳ ảo">Kỳ ảo</button>
+    <button data-filter="plugin">plugin</button>
+    <button data-filter="phần mềm">phần mềm</button>
+  </div>
+
+  <!-- Tìm kiếm -->
+  <div class="search-box">
+    <input type="text" id="searchInput" placeholder="🔍 Tìm kiếm nhân vật..." />
+  </div>
+
+  <!-- Lưới nhân vật -->
+  <div id="characterGrid" class="grid"></div>
+
+  <!-- Modal chi tiết -->
+  <div id="characterDetailModal" class="modal">
+    <div class="modal-content">
+      <span id="closeCharacterDetailModal" class="close">&times;</span>
+      <img id="modalCharacterImage" src="" alt="" />
+      <h2 id="modalCharacterTitle"></h2>
+      <p id="modalCharacterCategory" class="category"></p>
+      <p id="modalCharacterDescription"></p>
+      <span id="modalNewTag" class="label new">Mới</span>
+      <span id="modalLicensedTag" class="label licensed">Bản quyền</span>
+      <br />
+      <button id="downloadCharacterBtn">Tải xuống</button>
+    </div>
+  </div>
+
+  <!-- Alert tùy chỉnh -->
+  <div id="customAlertOverlay" class="alert-overlay">
+    <div class="alert-box">
+      <p id="customAlertMessage"></p>
+      <button id="customAlertCloseBtn">OK</button>
+    </div>
+  </div>
+
+  <!-- Script -->
+  <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

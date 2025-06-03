@@ -1,0 +1,430 @@
+/* General reset and font */
+* {
+  box-sizing: border-box;
+  font-family: 'Quicksand', sans-serif;
+}
+
+body {
+  background-color: #f9fafb;
+  margin: 0;
+  padding: 0;
+  color: #333;
+}
+
+/* Top Bar */
+.topbar {
+  background: #ffffff;
+  padding: 15px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.topbar h1 {
+  margin: 0;
+  font-size: 24px;
+  color: #333;
+}
+
+#loginBtn {
+  background-color: #409eff;
+  color: white;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s;
+}
+
+#loginBtn:hover {
+  background-color: #2c7cd7;
+}
+
+/* Controls Section (Filters and Search) */
+.controls {
+  background: #fff;
+  padding: 20px;
+  margin: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.06);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.filters button {
+  background: #eee;
+  border: none;
+  padding: 8px 12px;
+  margin-right: 8px; /* Giữ nguyên margin-right để tách các nút */
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.filters button:hover,
+.filters button.active {
+  background-color: #409eff;
+  color: white;
+}
+
+#searchInput {
+  padding: 8px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  width: 220px;
+}
+
+/* Character Grid */
+.grid {
+  padding: 20px;
+  display: grid;
+  gap: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+}
+
+/* Character Card */
+.card {
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  padding: 15px;
+  text-align: center;
+  transition: transform 0.3s;
+  position: relative;
+  cursor: pointer; /* Indicate clickable */
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}
+
+.card img {
+  max-width: 100%;
+  height: 120px;
+  object-fit: contain;
+  border-radius: 10px;
+}
+
+.card h3 {
+  margin: 12px 0 6px;
+  font-size: 18px;
+}
+
+/* Labels (New, Licensed) */
+.label {
+  display: inline-block;
+  padding: 3px 6px;
+  font-size: 12px;
+  border-radius: 4px;
+  color: white;
+  margin-top: 4px;
+  margin-right: 5px;
+}
+
+.label.new {
+  background-color: #34c38f; /* Green */
+}
+
+.label.licensed {
+  background-color: #f46a6a; /* Red */
+}
+
+/* Login Popup (Giữ nguyên phong cách của bạn) */
+.login-popup {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.3);
+  display: none; /* Hidden by default, shown by JS */
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+.popup-content {
+  background: #fff;
+  padding: 30px;
+  border-radius: 12px;
+  text-align: center;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.2);
+  position: relative;
+}
+
+.popup-content input {
+  padding: 8px;
+  margin-top: 10px;
+  width: 200px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+.popup-content button {
+  margin-top: 12px;
+  padding: 8px 16px;
+  background: #409eff;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.close-popup { /* Close button for login popup */
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 28px;
+  font-weight: bold;
+  color: #aaa;
+  cursor: pointer;
+}
+.close-popup:hover {
+  color: #333;
+}
+
+.error-msg { /* Error message for login popup */
+  color: red;
+  font-size: 0.9em;
+  margin-top: 5px;
+  margin-bottom: 10px;
+}
+
+/* --- Character Detail Modal (Bảng lớn thông tin) --- */
+.modal {
+    display: none; /* Hidden by default, shown by JS */
+    position: fixed;
+    z-index: 1000; /* Ensure it's on top of everything */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.5); /* Semi-transparent background */
+    justify-content: center; /* Căn giữa nội dung */
+    align-items: center; /* Căn giữa nội dung */
+}
+
+.modal-content {
+    background-color: #fefefe;
+    padding: 30px;
+    border-radius: 12px;
+    width: 90%;
+    max-width: 650px; /* Max width for content */
+    position: relative;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+    animation-name: animatetop; /* Entrance animation */
+    animation-duration: 0.4s;
+    text-align: left;
+}
+
+/* Animation for modal entry */
+@keyframes animatetop {
+    from {top: -300px; opacity: 0}
+    to {top: 0; opacity: 1}
+}
+
+.close-button { /* Close button for detail modal */
+    color: #aaa;
+    font-size: 32px;
+    font-weight: bold;
+    position: absolute;
+    top: 15px;
+    right: 25px;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.close-button:hover,
+.close-button:focus {
+    color: #555;
+}
+
+.modal-image {
+    max-width: 150px;
+    height: auto;
+    border-radius: 8px;
+    display: block;
+    margin: 0 auto 20px auto; /* Center image and add bottom margin */
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.modal-content h2 {
+    font-size: 2em;
+    color: #333;
+    margin-top: 0;
+    margin-bottom: 15px;
+    text-align: center; /* Center title in modal */
+}
+
+.modal-content p {
+    font-size: 1.1em;
+    line-height: 1.6;
+    color: #555;
+    margin-bottom: 10px;
+}
+
+.modal-labels-container {
+    margin-top: 15px;
+    display: flex;
+    gap: 10px;
+    justify-content: center; /* Center labels */
+}
+
+/* --- Custom Alert Styles (Kiểu dáng thông báo lỗi tùy chỉnh) --- */
+.custom-alert-overlay {
+    display: none; /* Hidden by default, shown by JS as 'flex' */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7); /* Nền tối hơn */
+    z-index: 2000; /* Đảm bảo nằm trên mọi thứ */
+    justify-content: center; /* Căn giữa theo chiều ngang */
+    align-items: center; /* Căn giữa theo chiều dọc */
+}
+
+.custom-alert-box {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    max-width: 400px;
+    width: 90%;
+    animation: fadeInScale 0.3s ease-out; /* Hiệu ứng hiện ra */
+}
+
+.custom-alert-box p {
+    font-size: 1.2em;
+    color: #e74c3c; /* Màu đỏ cho thông báo lỗi */
+    margin-bottom: 20px;
+    font-weight: bold;
+    line-height: 1.4;
+}
+
+.custom-alert-box button {
+    background-color: #409eff; /* Màu xanh tương tự nút login/filter */
+    color: white;
+    border: none;
+    padding: 10px 25px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: background-color 0.3s;
+}
+
+.custom-alert-box button:hover {
+    background-color: #2c7cd7;
+}
+
+/* Animation for custom alert */
+@keyframes fadeInScale {
+    from {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* === NÚT TẢI XUỐNG ĐẸP HƠN (PHIÊN BẢN GRADIENT) === */
+.download-button {
+    background: linear-gradient(135deg, #4CAF50 0%, #2e8b57 100%); /* Gradient xanh lá */
+    color: white;
+    border: none;
+    padding: 14px 30px; /* Padding lớn hơn */
+    border-radius: 50px; /* Bo tròn hoàn toàn (nếu nút đủ rộng) */
+    cursor: pointer;
+    font-size: 1.15em; /* Chữ lớn hơn một chút */
+    font-weight: bold;
+    text-transform: uppercase; /* Chữ in hoa */
+    letter-spacing: 1px; /* Khoảng cách chữ */
+    margin-top: 20px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    transition: all 0.4s ease; /* Chuyển động mượt mà */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Bóng nhẹ */
+}
+
+.download-button:hover {
+    background: linear-gradient(135deg, #2e8b57 0%, #4CAF50 100%); /* Đổi hướng gradient khi hover */
+    transform: scale(1.03); /* Phóng to nhẹ khi hover */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+}
+
+.download-button:active {
+    transform: scale(0.98); /* Hơi co lại khi click */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .controls {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .filters {
+        margin-bottom: 15px;
+    }
+    #searchInput {
+        width: 100%;
+    }
+    .grid {
+        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+        padding: 15px;
+        gap: 10px;
+    }
+    .card {
+        padding: 10px;
+    }
+    .topbar {
+        padding: 10px 15px;
+    }
+    .topbar h1 {
+        font-size: 20px;
+    }
+    #loginBtn {
+        padding: 6px 12px;
+        font-size: 14px;
+    }
+    .popup-content, .modal-content {
+        padding: 20px;
+    }
+    .close-button {
+        font-size: 28px;
+    }
+    .modal-image {
+        max-width: 100px;
+        margin-bottom: 15px;
+    }
+    .modal-content h2 {
+        font-size: 1.5em;
+    }
+    .modal-content p {
+        font-size: 1em;
+    }
+    .custom-alert-box { /* Điều chỉnh kích thước alert trên mobile */
+        padding: 20px;
+    }
+    .custom-alert-box p {
+        font-size: 1em;
+    }
+    .custom-alert-box button {
+        padding: 8px 20px;
+        font-size: 0.9em;
+    }
+    /* Responsive cho nút tải xuống */
+    .download-button {
+        padding: 12px 25px;
+        font-size: 1.05em;
+        margin-top: 15px;
+    }
+}
